@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Regalitos</title>
+    <style>
+        body {
+            overflow: hidden;
+            height: inherit;
+        }
+
+        .cake {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas></canvas>
+
+    <script>
+
+        const canvas = document.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+        const width = canvas.width = window.innerWidth;
+        const height = canvas.height = window.innerHeight;
+        var clickPulsado = false;
+        var puntuacion = 0;
+        var cakeCount = 3;
+        let cakes = [];
+        var cupon = Math.round(Math.random() * (200 - 5) + 5);
+        var backgroundImg = new Image();
+        backgroundImg.src = "background.jpg"
+
+        generateCakes();
+
+        function drawBackground() {
+            ctx.beginPath();
+            // ctx.drawImage(backgroundImg, 0, 0, canvas.width, canvas.height);
+            ctx.closePath();
+        }
+
+        canvas.addEventListener("click", hacerClick, false)
+        function hacerClick(e) {
+
+            console.log(cakes)
+            console.log(e.x)
+            console.log(e.y)
+            for (let i = 0; i < cakes.length; i++) {
+                if ((e.x > cakes[i].x && e.x < cakes[i].x + 50) && (e.y > cakes[i].y && e.y < cakes[i].y + 50)) {//
+                    cakes.splice(i, 1);
+                    cakeCount--;
+                }
+            }
+        }
+        function Cake(x, y, velX, velY, color, size) {
+            this.x = x;
+            this.y = y;
+            this.velX = velX;
+            this.velY = velY;
+            this.color = color;
+            this.size = size;
+        }
+
+        Cake.prototype.draw = function () {
+            // ctx.beginPath();
+            // ctx.fillStyle = this.color;
+            // ctx.arc(this.x + 16, this.y + 16, this.size - 10, 0, 2 * Math.PI);
+            // ctx.fill();
+        };
+
+        Cake.prototype.update = function () {
+            if ((this.x + this.size) >= width) {
+                this.velX = -(this.velX);
+            }
+            if ((this.x - this.size) <= 0) {
+                this.velX = -(this.velX);
+            }
+            if ((this.y + this.size) >= height) {
+                this.velY = -(this.velY);
+            }
+            if ((this.y - this.size) <= 0) {
+                this.velY = -(this.velY);
+            }
+            this.x += this.velX;
+            this.y += this.velY;
+        };
+        Cake.prototype.collisionDetect = function () {
+            for (let j = 0; j < cakes.length; j++) {
+                if (!(this === cakes[j])) {
+                    const dx = this.x - cakes[j].x;
+                    const dy = this.y - cakes[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < this.size + cakes[j].size) {
+                        cakes[j].color = this.color = 'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')';
+                    }
+                }
+            }
+        };
+
+        function loop() {
+            var cake = new Image();
+            cake.src = "cake.png";
+            cake.onload = function () {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                drawBackground()
+                cakes.forEach(b => {
+                    cake.width = b.size;
+                    b.draw()
+                    b.update();
+                    ctx.drawImage(cake, b.x, b.y);
+                })
+                ctx.fillStyle = "Black";
+                ctx.font = "50px Times"
+                ctx.fillText("Regalos restantes: " + cakeCount, 20, 40);
+                if (!cakeCount) {
+                    ctx.fillStyle = "Black";
+                    ctx.font = "80px Times"
+                    ctx.fillText("Has ganado un cupón de : " + cupon + " €", canvas.width / 2 - 500, canvas.height / 2);
+                }
+            }
+            requestAnimationFrame(loop);
+        }
+        loop();
+
+
+        function generateCakes() {
+            while (cakes.length < cakeCount) {
+                const size = 80;
+                let cake = new Cake(
+                    random(size, width - size),
+                    random(size, height - size),
+                    random(-7, 7),
+                    random(-7, 7),
+
+                    'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')',
+                    size
+                );
+                cakes.push(cake);
+            }
+        }
+
+
+        function random(min, max) {
+            const num = Math.floor(Math.random() * (max - min + 1)) + min;
+            return num;
+        }
+    </script>
+</body>
+
+</html>
