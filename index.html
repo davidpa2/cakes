@@ -11,115 +11,13 @@
             background-color: #c5fad4;
             resize: none;
         }
-
-        .cake {
-            background-color: red;
-        }
     </style>
+    <script src="Cake.js"></script>
 </head>
 
 <body>
     <canvas></canvas>
-
-    <script>
-        class Cake {
-            constructor(x, y, velX, velY, color, size) {
-                this.x = x;
-                this.y = y;
-                this.velX = velX;
-                this.velY = velY;
-                this.color = color;
-                this.size = size;
-            }
-
-            static generateCakes() {
-                var cakes = [];
-                while (cakes.length < cakeCount) {
-                    const size = 80;
-                    let cake = new Cake(
-                        random(size, width - size),
-                        random(size, height - size),
-                        random(-7, 7),
-                        random(-7, 7),
-
-                        'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')',
-                        size
-                    );
-                    cakes.push(cake);
-                }
-                return cakes;
-            }
-
-            update() {
-                if ((this.x + this.size) >= width) {
-                    this.velX = -(this.velX);
-                }
-                if ((this.x - this.size) <= 0) {
-                    this.velX = -(this.velX);
-                }
-                if ((this.y + this.size) >= height) {
-                    this.velY = -(this.velY);
-                }
-                if ((this.y - this.size) <= 0) {
-                    this.velY = -(this.velY);
-                }
-                this.x += this.velX;
-                this.y += this.velY;
-            };
-        }
-
-        const canvas = document.querySelector('canvas');
-        const ctx = canvas.getContext('2d');
-        const width = canvas.width = window.innerWidth;
-        const height = canvas.height = window.innerHeight;
-        var clickPulsado = false;
-        var cakeCount = 3;
-        let cakes = [];
-
-        cakes = Cake.generateCakes();
-        canvas.addEventListener("click", hacerClick, false);
-        loop();
-
-        function hacerClick(e) {
-            console.log(cakes)
-            console.log(e.x)
-            console.log(e.y)
-            for (let i = 0; i < cakes.length; i++) {
-                if ((e.x > cakes[i].x && e.x < cakes[i].x + 50) && (e.y > cakes[i].y && e.y < cakes[i].y + 50)) {//
-                    cakes.splice(i, 1);
-                    cakeCount--;
-                }
-            }
-        }
-
-        function loop() {
-            var cake = new Image();
-            cake.src = "cake.png";
-            cake.onload = function () {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                cakes.forEach(b => {
-                    cake.width = b.size;
-                    b.update();
-                    ctx.drawImage(cake, b.x, b.y);
-                })
-                ctx.fillStyle = "Black";
-                ctx.font = "50px Times"
-                ctx.fillText("Regalos restantes: " + cakeCount, 40, 40);
-                if (!cakeCount) {
-                    ctx.fillStyle = "Black";
-                    ctx.font = "80px Times"
-                    ctx.textAlign = "center";
-                    ctx.fillText("¡Feliz cumpleaños!", canvas.width / 2, canvas.height / 2);
-                }
-            }
-            requestAnimationFrame(loop);
-        }
-
-        function random(min, max) {
-            const num = Math.floor(Math.random() * (max - min + 1)) + min;
-            return num;
-        }
-    </script>
+    <script src="index.js"></script>
 </body>
 
 </html>
