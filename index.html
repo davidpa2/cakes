@@ -8,6 +8,8 @@
         body {
             overflow: hidden;
             height: inherit;
+            background-color: #c5fad4;
+            resize: none;
         }
 
         .cake {
@@ -27,22 +29,14 @@
         const width = canvas.width = window.innerWidth;
         const height = canvas.height = window.innerHeight;
         var clickPulsado = false;
-        var puntuacion = 0;
         var cakeCount = 3;
         let cakes = [];
-        var cupon = Math.round(Math.random() * (200 - 5) + 5);
         var backgroundImg = new Image();
         backgroundImg.src = "background.jpg"
 
         generateCakes();
-
-        function drawBackground() {
-            ctx.beginPath();
-            // ctx.drawImage(backgroundImg, 0, 0, canvas.width, canvas.height);
-            ctx.closePath();
-        }
-
         canvas.addEventListener("click", hacerClick, false)
+
         function hacerClick(e) {
 
             console.log(cakes)
@@ -105,7 +99,6 @@
             cake.src = "cake.png";
             cake.onload = function () {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                drawBackground()
                 cakes.forEach(b => {
                     cake.width = b.size;
                     b.draw()
@@ -114,11 +107,12 @@
                 })
                 ctx.fillStyle = "Black";
                 ctx.font = "50px Times"
-                ctx.fillText("Regalos restantes: " + cakeCount, 20, 40);
+                ctx.fillText("Regalos restantes: " + cakeCount, 40, 40);
                 if (!cakeCount) {
                     ctx.fillStyle = "Black";
                     ctx.font = "80px Times"
-                    ctx.fillText("Has ganado un cupón de : " + cupon + " €", canvas.width / 2 - 500, canvas.height / 2);
+                    ctx.textAlign = "center";
+                    ctx.fillText("¡Feliz cumpleaños!", canvas.width / 2, canvas.height / 2);
                 }
             }
             requestAnimationFrame(loop);
