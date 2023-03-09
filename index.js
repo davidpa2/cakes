@@ -32,7 +32,7 @@ function loop() {
         if (cakeCount) {
             cnt.fillStyle = "Black";
             cnt.font = "3.5rem Times"
-            cnt.fillText("Tartas restantes: " + cakeCount, 40, 40);
+            cnt.fillText("Tartas restantes: " + cakeCount, 40, 55);
         } else {
             if (!fireworks) {
                 loadFireworks();
