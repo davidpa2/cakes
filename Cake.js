@@ -27,16 +27,16 @@ class Cake {
     }
 
     update() {
-        if ((this.x + this.size) >= width) {
+        if ((this.x + (this.size / 2) + 10) >= width) { // Right side
             this.velX = -(this.velX);
         }
-        if ((this.x - this.size) <= 0) {
+        if ((this.x) <= 0) { // Left side
             this.velX = -(this.velX);
         }
-        if ((this.y + this.size) >= height) {
+        if ((this.y + (this.size) / 2 + 10) >= height) { // Bottom side
             this.velY = -(this.velY);
         }
-        if ((this.y - this.size) <= 0) {
+        if ((this.y) <= 0) { // Top side
             this.velY = -(this.velY);
         }
         this.x += this.velX;
