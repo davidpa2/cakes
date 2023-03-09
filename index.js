@@ -1,13 +1,13 @@
-const canvas = document.querySelector('canvas');
-const ctx = canvas.getContext('2d');
-const width = canvas.width = window.innerWidth;
-const height = canvas.height = window.innerHeight;
-var clickPulsado = false;
-var cakeCount = 34;
+const cnvs = document.querySelector('canvas');
+const cnt = cnvs.getContext('2d');
+const width = cnvs.width = window.innerWidth;
+const height = cnvs.height = window.innerHeight;
+var cakeCount = 1;
 let cakes = [];
+var fireworks = false;
 
 cakes = Cake.generateCakes();
-canvas.addEventListener("click", click, false);
+cnvs.addEventListener("click", click, false);
 loop();
 
 function click(e) {
@@ -23,24 +23,35 @@ function loop() {
     var cake = new Image();
     cake.src = "cake.png";
     cake.onload = function () {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        cnt.clearRect(0, 0, cnvs.width, cnvs.height);
         cakes.forEach(b => {
             cake.width = b.size;
             b.update();
-            ctx.drawImage(cake, b.x, b.y);
+            cnt.drawImage(cake, b.x, b.y);
         })
         if (cakeCount) {
-            ctx.fillStyle = "Black";
-            ctx.font = "3.5rem Times"
-            ctx.fillText("Tartas restantes: " + cakeCount, 40, 40);
+            cnt.fillStyle = "Black";
+            cnt.font = "3.5rem Times"
+            cnt.fillText("Tartas restantes: " + cakeCount, 40, 40);
         } else {
-            ctx.fillStyle = "Black";
-            ctx.font = "4rem Times"
-            ctx.textAlign = "center";
-            ctx.fillText("¡Feliz cumpleaños!", canvas.width / 2, canvas.height / 2);
+            if (!fireworks) {
+                loadFireworks();
+                fireworks = true;
+            }
+            cnt.fillStyle = "white";
+            cnt.font = "4rem Times"
+            cnt.textAlign = "center";
+            cnt.fillText("¡Feliz cumpleaños!", cnvs.width / 2, cnvs.height / 2);
         }
     }
     requestAnimationFrame(loop);
+}
+
+function loadFireworks() {
+    let script = document.createElement('script');
+    script.src = "fireworks.js";
+    document.body.append(script);
+    document.body.classList.add('dark')
 }
 
 function random(min, max) {

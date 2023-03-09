@@ -1,0 +1,28 @@
+body {
+    overflow: hidden;
+    height: inherit;
+    background-color: #c5fad4;
+    resize: none;
+    margin: 0;
+}
+
+canvas {
+    min-width: 100%;
+    cursor: crosshair;
+    display: block;
+}
+
+body.dark {
+    animation: color_fade 2s;
+    background-color: #000;
+}
+
+@keyframes color_fade {
+    from {
+        background-color: #c5fad4;
+    }
+
+    to {
+        background-color: #000;
+    }
+}
