@@ -29,6 +29,7 @@ var canvas = document.getElementById('canvas'),
     timerTotal = 80,
     timerTick = 0,
     mousedown = false,
+    manualFirework = false,
     // mouse x coordinate,
     mx,
     // mouse y coordinate
@@ -217,6 +218,13 @@ function loopFireworks() {
     // lighter creates bright highlight points as the fireworks and particles overlap each other
     ctx.globalCompositeOperation = 'lighter';
 
+    if (!manualFirework) {
+        cnt.fillStyle = "white";
+        cnt.font = "2.5rem Times"
+        cnt.textAlign = "center";
+        cnt.fillText("Toca la pantalla para lanzar fuegos artificiales", cnvs.width / 2, cnvs.height - 40);
+    }
+
     // loop over each firework, draw it, update it
     var i = fireworks.length;
     while (i--) {
@@ -248,6 +256,7 @@ function loopFireworks() {
             // start the firework at the bottom middle of the screen, then set the current mouse coordinates as the target
             fireworks.push(new Firework(cw / 2, ch, mx, my));
             limiterTick = 0;
+            manualFirework = true;
         }
     } else {
         limiterTick++;
