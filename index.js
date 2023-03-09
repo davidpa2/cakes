@@ -2,7 +2,7 @@ const cnvs = document.querySelector('canvas');
 const cnt = cnvs.getContext('2d');
 const width = cnvs.width = window.innerWidth;
 const height = cnvs.height = window.innerHeight;
-var cakeCount = 1;
+var cakeCount = 34;
 let cakes = [];
 var fireworks = false;
 
@@ -24,15 +24,15 @@ function loop() {
     cake.src = "cake.png";
     cake.onload = function () {
         cnt.clearRect(0, 0, cnvs.width, cnvs.height);
-        cakes.forEach(b => {
-            cake.width = b.size;
-            b.update();
-            cnt.drawImage(cake, b.x, b.y);
+        cakes.forEach(c => {
+            cake.width = c.size;
+            c.update();
+            cnt.drawImage(cake, c.x, c.y);
         })
         if (cakeCount) {
             cnt.fillStyle = "Black";
             cnt.font = "3.5rem Times"
-            cnt.fillText("Tartas restantes: " + cakeCount, 40, 55);
+            cnt.fillText("Tartas restantes: " + cakeCount, 40, 80);
         } else {
             if (!fireworks) {
                 loadFireworks();
