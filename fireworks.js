@@ -272,6 +272,19 @@ canvas.addEventListener('mouseup', function (e) {
     mousedown = false;
 });
 
+// toggle mobile touches to be able to use it at mobile phones
+canvas.addEventListener('touchstart', function (e) {
+    e.preventDefault();
+    mx = e.targetTouches[0].clientX - canvas.offsetLeft;
+    my = e.targetTouches[0].clientY - canvas.offsetTop;
+    mousedown = true;
+});
+
+canvas.addEventListener('touchend', function (e) {
+    e.preventDefault();
+    mousedown = false;
+});
+
 // once the script loads, we are ready for some fireworks!
 loopFireworks();
 
