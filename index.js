@@ -5,6 +5,7 @@ const height = cnvs.height = window.innerHeight;
 var cakeCount = 34;
 let cakes = [];
 var fireworks = false;
+var showClickAdvice = true;
 
 cakes = Cake.generateCakes();
 cnvs.addEventListener("click", click, false);
@@ -15,6 +16,7 @@ function click(e) {
         if ((e.x > cakes[i].x && e.x < cakes[i].x + 50) && (e.y > cakes[i].y && e.y < cakes[i].y + 50)) {//
             cakes.splice(i, 1);
             cakeCount--;
+            showClickAdvice = false;
         }
     }
 }
@@ -30,8 +32,15 @@ function loop() {
             cnt.drawImage(cake, c.x, c.y);
         })
         if (cakeCount) {
+            if (showClickAdvice) {
+                cnt.fillStyle = "Black";
+                cnt.font = "3rem Times"
+                cnt.textAlign = "center";
+                cnt.fillText("¡Toca todas las tartas!", cnvs.width / 2, cnvs.height - 40);
+            }
             cnt.fillStyle = "Black";
-            cnt.font = "3.5rem Times"
+            cnt.font = "3.5rem Times";
+            cnt.textAlign = "start";
             cnt.fillText("Tartas restantes: " + cakeCount, 40, 80);
         } else {
             if (!fireworks) {
