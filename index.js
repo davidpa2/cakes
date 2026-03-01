@@ -8,6 +8,10 @@ var fireworks = false;
 var showClickAdvice = true;
 
 cakes = Cake.generateCakes();
+window.addEventListener("resize", function() {
+    cnvs.width = window.innerWidth;
+    cnvs.height = window.innerHeight;
+}, true);
 cnvs.addEventListener("click", click, false);
 loop();
 
@@ -34,12 +38,12 @@ function loop() {
         if (cakeCount) {
             if (showClickAdvice) {
                 cnt.fillStyle = "Black";
-                cnt.font = "3rem Times"
+                cnt.font = "7vwvw Times"
                 cnt.textAlign = "center";
                 cnt.fillText("¡Toca todas las tartas!", cnvs.width / 2, cnvs.height - 40);
             }
             cnt.fillStyle = "Black";
-            cnt.font = "3.5rem Times";
+            cnt.font = "8vw Times";
             cnt.textAlign = "start";
             cnt.fillText("Tartas restantes: " + cakeCount, 40, 80);
         } else {
@@ -48,7 +52,7 @@ function loop() {
                 fireworks = true;
             }
             cnt.fillStyle = "white";
-            cnt.font = "4rem Times"
+            cnt.font = "8vw Times"
             cnt.textAlign = "center";
             cnt.fillText("¡Feliz cumpleaños!", cnvs.width / 2, cnvs.height / 2);
         }
