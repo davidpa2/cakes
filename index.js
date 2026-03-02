@@ -45,7 +45,7 @@ function loop() {
             cnt.fillStyle = "Black";
             cnt.font = "8vw Times";
             cnt.textAlign = "start";
-            cnt.fillText("Tartas restantes: " + cakeCount, 40, 80);
+            cnt.fillText("Tartas restantes: " + cakeCount, 20, 40);
         } else {
             if (!fireworks) {
                 loadFireworks();
