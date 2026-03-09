@@ -29,7 +29,7 @@ var canvas = document.getElementById('canvas'),
     timerTotal = 80,
     timerTick = 0,
     mousedown = false,
-    manualFireworkCount = 250,
+    manualFireworkCount = 400,
     // mouse x coordinate,
     mx,
     // mouse y coordinate
@@ -220,7 +220,7 @@ function loopFireworks() {
 
     if (manualFireworkCount) {
         cnt.fillStyle = "white";
-        cnt.font = "2.5rem Times"
+        cnt.font = "5vw Times"
         cnt.textAlign = "center";
         cnt.fillText("Toca la pantalla para lanzar fuegos artificiales", cnvs.width / 2, cnvs.height - 40);
         manualFireworkCount--;
